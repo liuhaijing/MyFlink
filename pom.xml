@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>groupId</groupId>
+    <artifactId>MyFlink</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+
+    <!-- 通用属性声明区 -->
+    <properties>
+        <!-- Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <scala.binary.version>2.11</scala.binary.version>
+        <scala.version>2.11.8</scala.version>
+        <kafka.version>0.10.2.1</kafka.version>
+        <flink.version>1.8.1</flink.version>
+        <hadoop.version>2.7.3</hadoop.version>
+
+        <!-- scope 本地调试时注销 设定为默认的 compile 打包时设定为 provided -->
+        <setting.scope>compile</setting.scope>
+    </properties>
+
+    <!-- 仓库配置信息 -->
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>Public Repositories</name>
+            <url>http://10.39.0.110:8081/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>thirdparty</id>
+            <name>thirdparty</name>
+            <url>http://10.39.0.110:8081/nexus/content/repositories/thirdparty
+            </url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repository.jboss.org</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshot-repository.java.net</id>
+            <name>Java.net Snapshot Repository for Maven</name>
+            <url>https://maven.java.net/content/repositories/snapshots/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>cdh.repo</id>
+            <name>Cloudera Repositories</name>
+            <url>
+                http://10.39.0.110:8081/nexus/content/repositories/cdh.repo/
+            </url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <name>Central</name>
+            <url>
+                http://10.39.0.110:8081/nexus/content/repositories/central
+            </url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!--flink start-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${flink.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_2.11</artifactId>
+            <version>${flink.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_2.11</artifactId>
+            <version>${flink.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.10_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-filesystem_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-statebackend-rocksdb_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>-->
+        <!-- flink end-->
+
+        <!-- kafka start -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_${scala.binary.version}</artifactId>
+            <version>${kafka.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <!-- kafka end-->
+
+        <!-- hadoop start -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${hadoop.version}</version>
+            <scope>${setting.scope}</scope>
+        </dependency>
+        <!-- hadoop end -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.72</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.scala-tools</groupId>
+                <artifactId>maven-scala-plugin</artifactId>
+                <version>2.15.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <!-- Run shade goal on package phase -->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.handlers</resource>
+                                </transformer>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/spring.schemas</resource>
+                                </transformer>
+                            </transformers>
+                            <artifactSet>
+                                <excludes>
+                                    <!-- This list contains all dependencies of flink-dist
+                                    Everything else will be packaged into the fat-jar
+                                    -->
+                                    <exclude>org.apache.flink:flink-annotations</exclude>
+                                    <exclude>org.apache.flink:flink-shaded-hadoop2</exclude>
+                                    <exclude>org.apache.flink:flink-shaded-curator-recipes
+                                    </exclude>
+                                    <exclude>org.apache.flink:flink-core</exclude>
+                                    <exclude>org.apache.flink:flink-java</exclude>
+                                    <exclude>org.apache.flink:flink-scala_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-runtime_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-optimizer_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-clients_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-avro_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-examples-batch_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-examples-streaming_2.11
+                                    </exclude>
+                                    <exclude>org.apache.flink:flink-streaming-java_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-streaming-scala_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-scala-shell_2.11</exclude>
+                                    <exclude>org.apache.flink:flink-python</exclude>
+                                    <exclude>org.apache.flink:flink-metrics-core</exclude>
+                                    <exclude>org.apache.flink:flink-metrics-jmx</exclude>
+                                    <exclude>org.apache.flink:flink-statebackend-rocksdb_2.11
+                                    </exclude>
+                                    <!-- Also exclude very big transitive dependencies of Flink
+                                    WARNING: You have to remove these excludes if your code relies on other
+                                    versions of these dependencies.
+                                    -->
+                                    <exclude>log4j:log4j</exclude>
+                                    <exclude>com.data-artisans:flakka-actor_*</exclude>
+                                    <exclude>com.data-artisans:flakka-remote_*</exclude>
+                                    <exclude>com.data-artisans:flakka-slf4j_*</exclude>
+                                    <exclude>io.netty:netty-all</exclude>
+                                    <exclude>io.netty:netty</exclude>
+                                    <exclude>commons-fileupload:commons-fileupload</exclude>
+                                    <exclude>org.apache.avro:avro</exclude>
+                                    <exclude>commons-collections:commons-collections</exclude>
+                                    <exclude>com.thoughtworks.paranamer:paranamer</exclude>
+                                    <exclude>org.xerial.snappy:snappy-java</exclude>
+                                    <exclude>org.apache.commons:commons-compress</exclude>
+                                    <exclude>org.tukaani:xz</exclude>
+                                    <exclude>com.esotericsoftware.kryo:kryo</exclude>
+                                    <exclude>com.esotericsoftware.minlog:minlog</exclude>
+                                    <exclude>org.objenesis:objenesis</exclude>
+                                    <exclude>com.twitter:chill_*</exclude>
+                                    <exclude>com.twitter:chill-java</exclude>
+                                    <exclude>commons-lang:commons-lang</exclude>
+                                    <exclude>junit:junit</exclude>
+                                    <exclude>org.apache.commons:commons-lang3</exclude>
+                                    <exclude>org.slf4j:slf4j-api</exclude>
+                                    <exclude>org.slf4j:slf4j-log4j12</exclude>
+                                    <exclude>log4j:log4j</exclude>
+                                    <exclude>org.apache.commons:commons-math</exclude>
+                                    <exclude>org.apache.sling:org.apache.sling.commons.json</exclude>
+                                    <exclude>commons-logging:commons-logging</exclude>
+                                    <exclude>commons-codec:commons-codec</exclude>
+                                    <exclude>com.fasterxml.jackson.core:jackson-core</exclude>
+                                    <exclude>com.fasterxml.jackson.core:jackson-databind</exclude>
+                                    <exclude>com.fasterxml.jackson.core:jackson-annotations</exclude>
+                                    <exclude>stax:stax-api</exclude>
+                                    <exclude>com.typesafe:config</exclude>
+                                    <exclude>org.uncommons.maths:uncommons-maths</exclude>
+                                    <exclude>com.github.scopt:scopt_*</exclude>
+                                    <exclude>commons-io:commons-io</exclude>
+                                    <exclude>commons-cli:commons-cli</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-client</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-mapreduce-client-app
+                                    </exclude>
+                                    <exclude>org.apache.hadoop:hadoop-mapreduce-client-common
+                                    </exclude>
+                                    <exclude>org.apache.hadoop:hadoop-yarn-client</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-yarn-server-common</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-mapreduce-client-shuffle
+                                    </exclude>
+                                    <exclude>org.apache.hadoop:hadoop-mapreduce-client-core
+                                    </exclude>
+                                    <exclude>org.apache.hadoop:hadoop-yarn-common</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-auth</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-common</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-annotations</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-yarn-api</exclude>
+                                    <exclude>org.apache.hadoop:hadoop-mapreduce-client-jobclient
+                                    </exclude>
+                                    <exclude>org.apache.hadoop:hadoop-hdfs</exclude>
+                                    <exclude>io.netty:netty</exclude>
+                                    <exclude>com.google.protobuf:protobuf-java</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <filters>
+                                <filter>
+                                    <artifact>org.apache.flink:*</artifact>
+                                    <excludes>
+                                        <!-- exclude shaded google but include shaded curator -->
+                                        <exclude>org/apache/flink/shaded/com/**</exclude>
+                                        <exclude>web-docs/**</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <!-- Do not copy the signatures in the META-INF folder.
+                                    Otherwise, this might cause SecurityExceptions when using the JAR. -->
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 如果为true则有一个普通jar包和一个-shade.jar包，如果为false合包去掉原来包的依赖关系，shade过的jar作为项目默认的包-->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <!-- When true, dependencies are kept in the pom but with scope ‘provided’; when false, the
+                            dependency is removed. -->
+                            <keepDependenciesWithProvidedScope>false</keepDependenciesWithProvidedScope>
+                            <!-- When true, transitive deps of removed dependencies are promoted to direct dependencies.
+                            This should allow the drop in replacement of the removed deps with the new shaded jar and
+                            everything should still work. -->
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <!--jar包的pom.xml里去掉了dependency(META-INF/maven/$groupId/$artifactId/pom.xml)，并创建了一个dependency-reduced-pom.xml在根目录-->
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <!-- 生成source包，如果依赖的包没有source会报错 -->
+                            <createSourcesJar>false</createSourcesJar>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google.common</pattern>
+                                    <shadedPattern>shaded.com.google.common</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
